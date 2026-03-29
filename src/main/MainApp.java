@@ -27,16 +27,19 @@ public class MainApp {
             switch (choice) {
 
                 case 1:
-                    System.out.print("Enter Partner ID: ");
-                    int pId = sc.nextInt();
-                    sc.nextLine();
+    System.out.print("Enter Partner ID: ");
+    int pId = sc.nextInt();
+    sc.nextLine();
 
-                    System.out.print("Enter Partner Name: ");
-                    String pName = sc.nextLine();
+    System.out.print("Enter Partner Name: ");
+    String pName = sc.nextLine();
 
-                    manager.registerPartner(new DeliveryPartner(pId, pName));
-                    System.out.println("Delivery Partner Added!");
-                    break;
+    System.out.print("Enter Partner Distance from location: ");
+    double pDist = sc.nextDouble();
+
+    manager.registerPartner(new DeliveryPartner(pId, pName, pDist));
+    System.out.println("Delivery Partner Added!");
+    break;
 
                 case 2:
                     System.out.print("Enter Order ID: ");

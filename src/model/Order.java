@@ -26,6 +26,10 @@ public abstract class Order {
     return orderId;
 }
 
+public double getDistance() {
+    return distance;
+}
+
     public void setStatus(String status) {
         this.status = status;
     }

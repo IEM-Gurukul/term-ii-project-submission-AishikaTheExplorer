@@ -42,10 +42,11 @@ public void assignOrders() throws NoAvailablePartnerException {
 
         o.setStatus("Assigned to " + p.getName());
 
-        // FIXED LINE (using getter instead of direct access)
-        System.out.println("Order ID: " + o.getOrderId() +
-                " -> " + p.getName());
-
+         System.out.println(
+    "Order ID: " + o.getOrderId() +
+    ", Distance: " + o.distance +
+    " km -> Assigned to " + p.getName()
+);
         index = (index + 1) % partners.size();
     }
 }
