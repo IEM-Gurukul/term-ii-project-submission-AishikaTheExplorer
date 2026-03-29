@@ -44,8 +44,10 @@ public void assignOrders() throws NoAvailablePartnerException {
 
          System.out.println(
     "Order ID: " + o.getOrderId() +
-    ", Distance: " + o.distance +
-    " km -> Assigned to " + p.getName()
+    ", Distance: " + o.getDistance() + " km" +
+    " -> Assigned to Partner ID: " + p.getId() +
+    ", Name: " + p.getName() +
+    ", Partner Distance: " + p.getDistance() + " km"
 );
         index = (index + 1) % partners.size();
     }
