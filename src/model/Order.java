@@ -22,6 +22,10 @@ public abstract class Order {
         return priority;
     }
 
+    public int getOrderId() {
+    return orderId;
+}
+
     public void setStatus(String status) {
         this.status = status;
     }
