@@ -9,6 +9,10 @@ public class OrderAssignmentManager {
     private PriorityQueue<Order> orders;
     private List<DeliveryPartner> partners;
 
+    public List<DeliveryPartner> getPartners() {
+    return partners;
+} 
+
     public OrderAssignmentManager() {
         orders = new PriorityQueue<>((a, b) -> b.getPriority() - a.getPriority());
         partners = new ArrayList<>();
@@ -33,31 +37,59 @@ public void assignOrders() throws NoAvailablePartnerException {
         return;
     }
 
-    int index = 0;
+    boolean assignedAny = false;
 
     while (!orders.isEmpty()) {
-        Order o = orders.poll();
 
-        DeliveryPartner p = partners.get(index);
+        Order o = orders.peek(); // don't remove yet
 
-        o.setStatus("Assigned to " + p.getName());
+        DeliveryPartner nearest = findNearestAvailablePartner(o);
 
-         System.out.println(
-    "Order ID: " + o.getOrderId() +
-    ", Distance: " + o.getDistance() + " km" +
-    " -> Assigned to Partner ID: " + p.getId() +
-    ", Name: " + p.getName() +
-    ", Partner Distance: " + p.getDistance() + " km"
-);
-        index = (index + 1) % partners.size();
-    }
-}
-}
-
- /*   private DeliveryPartner findAvailablePartner() {
-        for (DeliveryPartner p : partners) {
-            if (p.isAvailable()) return p;
+        if (nearest == null) {
+            System.out.println("All delivery partners are busy. Waiting...");
+            break; // STOP assigning
         }
-        return null;
+
+        // Now assign
+        o = orders.poll();
+
+        nearest.setAvailable(false); // mark busy
+        o.setStatus("Assigned to " + nearest.getName());
+
+        System.out.println(
+            "Order ID: " + o.getOrderId() +
+            " (" + o.getDistance() + " km)" +
+            " -> Assigned to " + nearest.getName() +
+            " (Distance: " + nearest.getDistance() + " km)"
+        );
+
+        assignedAny = true;
     }
-}*/
+
+    if (!assignedAny) {
+        System.out.println("No assignments possible right now.");
+    }
+}
+
+
+private DeliveryPartner findNearestAvailablePartner(Order o) {
+
+    DeliveryPartner nearest = null;
+    double minDistance = Double.MAX_VALUE;
+
+    for (DeliveryPartner p : partners) {
+        if (p.isAvailable()) {
+
+            double diff = Math.abs(p.getDistance() - o.getDistance());
+
+            if (diff < minDistance) {
+                minDistance = diff;
+                nearest = p;
+            }
+        }
+    }
+
+    return nearest;
+}
+
+}

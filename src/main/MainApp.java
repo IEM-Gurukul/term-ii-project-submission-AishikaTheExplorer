@@ -18,7 +18,8 @@ public class MainApp {
             System.out.println("2. Add Food Order");
             System.out.println("3. Add Grocery Order");
             System.out.println("4. Assign Orders");
-            System.out.println("5. Exit");
+            System.out.println("5. Complete Delivery");
+            System.out.println("6. Exit");
             System.out.print("Enter choice: ");
 
             int choice = sc.nextInt();
@@ -84,8 +85,26 @@ public class MainApp {
                         System.out.println(e.getMessage());
                     }
                     break;
+case 5:
+    System.out.print("Enter Partner ID to mark available: ");
+    int id = sc.nextInt();
 
-                case 5:
+    boolean found = false;
+
+    for (DeliveryPartner p : manager.getPartners()) {
+        if (p.getId() == id) {
+            p.setAvailable(true);
+            System.out.println("Partner is now available!");
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        System.out.println("Partner not found!");
+    }
+    break;
+                case 6:
                     System.out.println("Exiting...");
                     sc.close();
                     return;

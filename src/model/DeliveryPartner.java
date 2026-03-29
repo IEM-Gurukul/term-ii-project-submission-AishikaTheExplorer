@@ -35,4 +35,10 @@ public class DeliveryPartner {
     public double getDistance() {
         return distance;
     }
+
+    public void setAvailable(boolean available) {
+    this.available = available;
+}
+
+
 }
