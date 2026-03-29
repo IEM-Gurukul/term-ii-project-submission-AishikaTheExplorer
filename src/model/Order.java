@@ -1,6 +1,5 @@
 package model;
 
-// Abstract class = Abstraction
 public abstract class Order {
     protected int orderId;
     protected String customerName;
@@ -17,7 +16,6 @@ public abstract class Order {
         this.status = "Pending";
     }
 
-    // Polymorphism (overridden in subclasses)
     public abstract int calculatePriority();
 
     public int getPriority() {
